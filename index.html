@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Player Hybrid</title>
+    <script src="./js/data.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <meta http-equiv="Content-Security-Policy"  content=" default-src 'self'; font-src fonts.gstatic.com; style-src 'self' fonts.googleapis.com;" />
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+</head>
+<body>
+    <header class="title">
+        <h1>Media Player</h1>
+    </header>
+    <main>
+        <div class="song-img"> <!--current song thumbnail-->
+            <img src="./img/back-in-the-saddle-full.jpeg" alt="song image">
+            <button class="btn" title="shuffle"><i class="material-symbols-outlined">shuffle</i></button> <!--button for shuffling-->
+        </div>
+
+        <ul class="playlist"> <!--playlist-->
+
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/heartbreak-away-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">Heartbreak Away</p>
+                    <p class="song-artist">Kelsey Lamb</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/understand-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">Understand</p>
+                    <p class="song-artist">Home Free</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/when-i-remember-you-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">When I Remember You</p>
+                    <p class="song-artist">Kelsey Lamb</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/under-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">Under</p>
+                    <p class="song-artist">Ashley Cooke</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/back-in-the-saddle-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">Back in the Saddle</p>
+                    <p class="song-artist">Ashley Cooke</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/going-home-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">Going Home</p>
+                    <p class="song-artist">Celtic Woman</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+            <li class="song"> <!--song-->
+                <div class="song-img">
+                    <img src="img/listen-to-the-music-thumb.jpeg" alt=""> <!--song thumbnail-->
+                </div>
+                <div class="song-details"> <!--song details-->
+                    <p class="song-title">Listen to the Music</p>
+                    <p class="song-artist">Home Free</p>
+                </div>
+                <div class="song-time"> <!--song time-->
+                    <time datetime="">0:00</time>
+                </div>
+            </li>
+
+        </ul>
+    </main>
+    <section class="progress"> <!--progress bar-->
+        <div class="played"></div>
+    </section>
+    <footer>
+        <div class="controls"> <!--controls-->
+            <button class="btn" title="previous"><i class="material-symbols-outlined">skip_previous</i></button>
+            <button class="btn" title="play"><i class="material-symbols-outlined">play_arrow</i></button>
+            <button class="btn" title="next"><i class="material-symbols-outlined">skip_next</i></button>
+        </div>
+        <div class="times"> <!--times-->
+            <time datetime="" class="current-time">0:00</time> <!--current time-->
+            <time datetime="" class="total-time">0:00</time> <!--total time-->
+        </div>
+    </footer>
+</body>
+</html>
