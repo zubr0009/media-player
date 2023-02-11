@@ -130,6 +130,8 @@ padding-right: 1.5rem;
   --color-primary-light: white;
   --color-secondary: hsl(0, 100%, 17%);
   --btn-color: darkred;
+  --song-primary:  hsl(0, 0%, 10%);
+  --song-secondary: #280b02;
 }
 
 html {
@@ -142,11 +144,14 @@ html {
     text-align: center;
     color: var(--btn-color);
     border-bottom: 0.25rem solid var(--color-secondary);
+    position: sticky;
+    top: 0;
 }
 
 .song-img {
   background-color: var(--color-primary);
   text-align: center;
+  width: auto;
 }
 
 .song-img .btn {
@@ -156,15 +161,19 @@ html {
 
 .playlist {
   background-color: var(--color-primary);
-  padding: 0;
+  padding: 0.5rem;
 }
 
 .playlist .song {
-  background-color: hsl(0, 0%, 10%);
+  background-color: var(--song-primary);
   display: flex;
   color: lightblue;
   border: 0.25rem solid var(--color-secondary);
   margin-bottom: 0.1rem;
+}
+
+.playlist .current-track {
+  background-color: var(--song-secondary);
 }
 
 .playlist .song-details {
@@ -179,6 +188,13 @@ html {
   flex-direction: column;
 }
 
+.progress {
+  height: 1.5rem;
+  background-color: var(--btn-color);
+  position: sticky;
+  bottom: 4.75rem;
+}
+
 footer {
   border-top: 0.5rem solid var(--color-secondary);
   background-color: black;
@@ -188,6 +204,8 @@ footer {
   display: flex;
   justify-content: center;
   gap: 0.75rem;
+  position: sticky;
+  bottom: 0;
 }
 
 footer .controls {
@@ -206,7 +224,9 @@ footer .times {
   main {
     display: flex;
   }
+
   .playlist {
-    width: 100%;
+    width: 60%;
+    margin-bottom: 0;
   }
 }
