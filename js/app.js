@@ -2,18 +2,21 @@ import songList from "./data.js";
 const APP = {
     audio: new Audio(),
     currentTrack: 0,
-    tracks: [songList[0].track, songList[1].track, songList[2].track, songList[3].track, songList[4].track, songList[5].track, songList[6].track],
+    paused: true,
     init() {
         APP.loadPlaylist();
+        APP.displayDurations();
         APP.addDOMListeners();
         APP.addAudioListeners();
+        APP.load();
     },
 
     addDOMListeners() {
-        document.getElementById('btnload').addEventListener('click', APP.load);
         document.getElementById('btnplay').addEventListener('click', APP.startplay);
         document.getElementById('btnpause').addEventListener('click', APP.pauseplay);
-        const playlist = document.getElementById('playlist');
+        document.getElementById('btnprev').addEventListener('click', APP.prevplay);
+        document.getElementById('btnnext').addEventListener('click', APP.nextplay);
+        const playlist = document.getElementById('playlist').addEventListener('click', APP.clickselect);
     },
 
     addAudioListeners() {
@@ -29,8 +32,12 @@ const APP = {
     },
 
     loadPlaylist() {
-        playlist.innerHTML = songList.map(song => {
-                return `<li class="song"> <!--song-->
+        playlist.innerHTML = songList.map((song, index) => {
+            let current = '';
+            if(index === APP.currentTrack){ 
+                current = "current-track" ;
+            }
+                return `<li class="song ${current}" data-id="${APP.audio.src}"> <!--song-->
                 <div class="song-img">
                 <img src="${song.thumbnail}" alt=""> <!--song thumbnail-->
                 </div>
@@ -39,39 +46,71 @@ const APP = {
                 <p class="song-artist">${song.artist}</p>
                 </div>
                 <div class="song-time"> <!--song time-->
-                <time>0:00</time>
+                <time id="list-total-time">0:00</time>
                 </div>
                 </li>`
-        }).join(' ');
-        const bigImage = document.getElementById('song-img');
-        bigImage.src=`${songList[APP.currentTrack].large}`;
-        const trackIndicator = document.querySelector('.playlist li');
-        songList.map(() => {
-            if (songList[APP.currentTrack]) {
-                trackIndicator.classList.add('current-track');
-            }
-        }).join(' ');
+            }).join(' ');
+            APP.bigImageUpdate();
     },
 
-    // loadLargePic() {
-    // },
+    load() {
+        APP.audio.src = `./media/${songList[APP.currentTrack].track}`;
+    },
 
-    load(andPlay = false) {
-        APP.audio.src = `./media/${APP.tracks[APP.currentTrack]}`;
-        console.log('Audio has been loaded');
-        andPlay && !(andPlay instanceof Event) && APP.startplay();
+    ended() {
+        APP.currentTrack++;
+        APP.songTransition();
     },
 
     startplay() {
         if (APP.audio.src) {
             APP.audio.play();
-        } else {
-            console.warn('You need to load a track first');
         }
     },
 
     pauseplay() {
         if (APP.audio && APP.audio.pause());
+    },
+
+    prevplay() {
+        if (APP.audio && APP.audio.pause());
+        APP.currentTrack--;
+        if (APP.currentTrack < 0) {
+            APP.currentTrack = songList.length;
+        }
+        APP.songTransition();
+    },
+
+    nextplay() {
+        if (APP.audio && APP.audio.pause());
+        APP.currentTrack++;
+        if (APP.currentTrack > songList.length) {
+            APP.currentTrack = 0;
+        }
+        APP.songTransition();
+    },
+
+    clickselect() {
+        const playlist = document.querySelector('.playlist');
+        let selection = playlist.closest('li.song');
+        const index = songList.indexOf(selection.getAttribute('data-id'));
+        APP.currentTrack = index;
+        APP.songTransition();
+    },
+
+    bigImageUpdate() {
+        const bigImage = document.getElementById('song-img');
+        bigImage.src=`${songList[APP.currentTrack].large}`;
+    },
+
+    selectColorUpdate() {
+        let songs = document.querySelectorAll('li.song');
+        songs.forEach((song, index) => {
+            song.classList.remove('current-track');
+            if (index === APP.currentTrack) {
+                song.classList.add('current-track');
+            }
+        });
     },
 
     durationchange() {
@@ -81,6 +120,22 @@ const APP = {
     timeupdate() {
         document.getElementById('current-time').textContent = APP.audio.currentTime;
     },
-};
+
+    songTransition() {
+        APP.selectColorUpdate();
+        APP.load();
+        APP.bigImageUpdate();
+        APP.startplay();
+    },
+
+    displayDurations() {
+        songList.forEach((song) => {
+            let tempAudio = new Audio( `../media/${song}`);
+            tempAudio.addEventListener('durationchange', (ev) => {
+                document.getElementById('list-total-time').textContent = APP.audio.duration;
+            });
+        });
+    },
+}
 
 document.addEventListener('DOMContentLoaded', APP.init);
