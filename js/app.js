@@ -5,7 +5,7 @@ const APP = {
     paused: true,
     init() {
         APP.loadPlaylist();
-        APP.displayDurations();
+        // APP.displayDurations();
         APP.addDOMListeners();
         APP.addAudioListeners();
         APP.load();
@@ -16,7 +16,7 @@ const APP = {
         document.getElementById('btnpause').addEventListener('click', APP.pauseplay);
         document.getElementById('btnprev').addEventListener('click', APP.prevplay);
         document.getElementById('btnnext').addEventListener('click', APP.nextplay);
-        const playlist = document.getElementById('playlist').addEventListener('click', APP.clickselect);
+        document.getElementById('playlist').addEventListener('click', APP.clickSelect);
     },
 
     addAudioListeners() {
@@ -32,12 +32,13 @@ const APP = {
     },
 
     loadPlaylist() {
+        const playlist = document.getElementById('playlist');
         playlist.innerHTML = songList.map((song, index) => {
             let current = '';
             if(index === APP.currentTrack){ 
                 current = "current-track" ;
             }
-                return `<li class="song ${current}" data-id="${APP.audio.src}"> <!--song-->
+                return `<li class="song ${current}" data-id="${index}"> <!--song-->
                 <div class="song-img">
                 <img src="${song.thumbnail}" alt=""> <!--song thumbnail-->
                 </div>
@@ -90,11 +91,10 @@ const APP = {
         APP.songTransition();
     },
 
-    clickselect() {
-        const playlist = document.querySelector('.playlist');
-        let selection = playlist.closest('li.song');
-        const index = songList.indexOf(selection.getAttribute('data-id'));
-        APP.currentTrack = index;
+    clickSelect(ev) {
+        let selection = ev.target.closest('li.song');
+        const index = selection.dataset.id;
+        APP.currentTrack = parseInt(index);
         APP.songTransition();
     },
 
@@ -104,6 +104,7 @@ const APP = {
     },
 
     selectColorUpdate() {
+        console.log(APP.currentTrack);
         let songs = document.querySelectorAll('li.song');
         songs.forEach((song, index) => {
             song.classList.remove('current-track');
@@ -128,14 +129,14 @@ const APP = {
         APP.startplay();
     },
 
-    displayDurations() {
-        songList.forEach((song) => {
-            let tempAudio = new Audio( `../media/${song}`);
-            tempAudio.addEventListener('durationchange', (ev) => {
-                document.getElementById('list-total-time').textContent = APP.audio.duration;
-            });
-        });
-    },
+    // displayDurations() {
+    //     songList.forEach((song) => {
+    //         let tempAudio = new Audio( `../media/${song}`);
+    //         tempAudio.addEventListener('durationchange', (ev) => {
+    //             document.getElementById('list-total-time').textContent = APP.audio.duration;
+    //         });
+    //     });
+    // },
 }
 
 document.addEventListener('DOMContentLoaded', APP.init);
