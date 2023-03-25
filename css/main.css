@@ -141,17 +141,25 @@ html {
 
 .title {
   background-color: black;
-    text-align: center;
-    color: var(--btn-color);
-    border-bottom: 0.25rem solid var(--color-secondary);
-    position: sticky;
-    top: 0;
+  text-align: center;
+  color: var(--btn-color);
+  border-bottom: 0.25rem solid var(--color-secondary);
+  position: sticky;
+  top: 0;
+}
+
+.title h1 {
+  animation: pulse 1s infinite;
 }
 
 .song-img {
   background-color: var(--color-primary);
   text-align: center;
   width: auto;
+}
+
+#song-img {
+  animation: pulse 1s infinite;
 }
 
 .song-img .btn {
@@ -195,6 +203,14 @@ html {
   bottom: 4.75rem;
 }
 
+.played {
+  background-color: var(--song-secondary);
+  width: 0;
+  height: 1.5rem;
+  position: sticky;
+  bottom: 4.75rem;
+}
+
 footer {
   border-top: 0.5rem solid var(--color-secondary);
   background-color: black;
@@ -228,5 +244,19 @@ footer .times {
   .playlist {
     width: 60%;
     margin-bottom: 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+  }
+
+  70% {
+    transform: scale(0.9);
+  }
+
+  100% {
+    transform: scale(0.95);
   }
 }

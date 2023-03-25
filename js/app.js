@@ -17,6 +17,8 @@ const APP = {
         document.getElementById('btnprev').addEventListener('click', APP.prevplay);
         document.getElementById('btnnext').addEventListener('click', APP.nextplay);
         document.getElementById('playlist').addEventListener('click', APP.clickSelect);
+        document.getElementById('shuffle').addEventListener('click', APP.shufflePlay);
+        document.getElementById('progress').addEventListener('click', APP.clickBar);
     },
 
     addAudioListeners() {
@@ -90,6 +92,20 @@ const APP = {
         }
         APP.songTransition();
     },
+    
+    shufflePlay() {
+        APP.audio.pause();
+        songList.shuffle = function () {
+            this.forEach(function (item, index, arr) {
+                let other = Math.floor(Math.random() * arr.length);
+                [arr[other], arr[index]] = [arr[index], arr[other]];
+            });
+            return this;
+        };
+        songList.shuffle();
+        APP.currentTrack = 0;
+        APP.songTransition();
+    },
 
     clickSelect(ev) {
         let selection = ev.target.closest('li.song');
@@ -104,7 +120,6 @@ const APP = {
     },
 
     selectColorUpdate() {
-        console.log(APP.currentTrack);
         let songs = document.querySelectorAll('li.song');
         songs.forEach((song, index) => {
             song.classList.remove('current-track');
@@ -120,6 +135,16 @@ const APP = {
 
     timeupdate() {
         document.getElementById('current-time').textContent = APP.audio.currentTime;
+        const played = document.getElementById('played');
+        let percentage = (APP.audio.currentTime / APP.audio.duration) * 100;
+        played.style.width = `${percentage}vw`;
+    },
+
+    clickBar(ev) {
+        const width = document.querySelector('.progress').clientWidth;
+        let percentage = (ev.x / width) * 100;
+        played.style.width = `${percentage}vw`;
+        APP.audio.currentTime = percentage;
     },
 
     songTransition() {
